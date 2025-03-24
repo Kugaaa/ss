@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工作中如何向上管理 - 图片卡片</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+        }
+        .card-container {
+            width: 640px;
+            height: 1340px;
+            background: linear-gradient(to bottom, #fff7f7, #ffefef);
+            padding: 30px;
+            box-sizing: border-box;
+            font-family: "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+        .card-inner {
+            background-color: white;
+            border-radius: 20px;
+            height: 100%;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(255, 100, 100, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #ff4757;
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+        .title:after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #ff9999;
+            border-radius: 3px;
+        }
+        .subtitle {
+            font-size: 16px;
+            color: #ff7f50;
+            font-style: italic;
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 100%;
+        }
+        .section {
+            background-color: #fff9f9;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(255, 150, 150, 0.1);
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .section-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #ff6b81;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        .section-title-icon {
+            margin-right: 10px;
+            font-size: 24px;
+        }
+        .point {
+            margin-bottom: 12px;
+        }
+        .point-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ff7f50;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+        }
+        .point-icon {
+            width: 24px;
+            display: inline-block;
+            margin-right: 8px;
+            text-align: center;
+        }
+        .point-list {
+            margin: 0;
+            padding-left: 32px;
+        }
+        .point-list li {
+            margin-bottom: 6px;
+            position: relative;
+            list-style-type: none;
+            line-height: 1.4;
+            font-size: 15px;
+        }
+        .point-list li:before {
+            content: "•";
+            color: #ff6b81;
+            font-weight: bold;
+            position: absolute;
+            left: -15px;
+        }
+        .diagram {
+            background-color: white;
+            border-radius: 15px;
+            padding: 15px;
+            height: 160px;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 15px;
+        }
+        .manager-box {
+            position: absolute;
+            width: 120px;
+            height: 40px;
+            background-color: #ff9999;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .you-box {
+            position: absolute;
+            width: 100px;
+            height: 40px;
+            background-color: #ffcc99;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .arrow {
+            position: absolute;
+            top: 60px;
+            height: 40px;
+            width: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .arrow:after {
+            content: '';
+            width: 2px;
+            height: 30px;
+            background-color: #ff6b81;
+            position: absolute;
+        }
+        .arrow:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 10px solid #ff6b81;
+        }
+        .strategy-bubble {
+            position: absolute;
+            background-color: #ffeaea;
+            border: 1px dashed #ff6b81;
+            border-radius: 10px;
+            padding: 4px 8px;
+            font-size: 13px;
+        }
+        .strategy-1 {
+            top: 60px;
+            right: 100px;
+        }
+        .strategy-2 {
+            top: 60px;
+            left: 100px;
+        }
+        .strategy-3 {
+            top: 120px;
+            right: 50px;
+        }
+        .footer {
+            position: absolute;
+            bottom: 25px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-style: italic;
+            color: #ff6b81;
+            font-size: 16px;
+        }
+        .decorative {
+            position: absolute;
+            font-size: 120px;
+            opacity: 0.03;
+            color: #ff4757;
+            z-index: 0;
+        }
+        .decorative-1 {
+            top: -20px;
+            right: -20px;
+            transform: rotate(30deg);
+        }
+        .decorative-2 {
+            bottom: -20px;
+            left: -20px;
+            transform: rotate(-30deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <div class="card-inner">
+            <div class="decorative decorative-1">🚀</div>
+            <div class="decorative decorative-2">⭐</div>
+            
+            <div class="header">
+                <div class="title">🚀 工作中如何向上管理 🚀</div>
+                <div class="subtitle">打造职场良性关系，向上管理也是一种能力</div>
+            </div>
+            
+            <div class="diagram">
+                <div class="manager-box">👨‍💼 上级</div>
+                <div class="arrow"></div>
+                <div class="you-box">🧑‍💻 你</div>
+                <div class="strategy-bubble strategy-1">💡影响</div>
+                <div class="strategy-bubble strategy-2">📊支持</div>
+                <div class="strategy-bubble strategy-3">🤝合作共赢</div>
+            </div>
+            
+            <div class="content">
+                <div class="section">
+                    <div class="section-title">
+                        <span class="section-title-icon">⭐</span>向上管理的核心技巧
+                    </div>
+                    
+                    <div class="point">
+                        <div class="point-title">
+                            <span class="point-icon">1️⃣</span>了解上级的目标和压力
+                        </div>
+                        <ul class="point-list">
+                            <li>站在领导角度思考问题</li>
+                            <li>理解上级面临的KPI和挑战</li>
+                            <li>主动询问领导对项目的期望和关注点</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="point">
+                        <div class="point-title">
+                            <span class="point-icon">2️⃣</span>有效沟通很关键
+                        </div>
+                        <ul class="point-list">
+                            <li>定期汇报工作进展，不要等问题发生</li>
+                            <li>提前准备简洁清晰的沟通要点</li>
+                            <li>问题同时提供解决方案，展现主动性 💡</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="point">
+                        <div class="point-title">
+                            <span class="point-icon">3️⃣</span>展示专业价值
+                        </div>
+                        <ul class="point-list">
+                            <li>做好本职工作是基础</li>
+                            <li>提供有价值的行业洞见和数据</li>
+                            <li>在关键时刻挺身而出解决问题</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="point">
+                        <div class="point-title">
+                            <span class="point-icon">4️⃣</span>适时争取资源
+                        </div>
+                        <ul class="point-list">
+                            <li>清晰表达需求和理由</li>
+                            <li>说明资源投入与产出比</li>
+                            <li>用数据支持你的请求 📊</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="point">
+                        <div class="point-title">
+                            <span class="point-icon">5️⃣</span>管理上级期望
+                        </div>
+                        <ul class="point-list">
+                            <li>承诺要谨慎，不轻易说"没问题"</li>
+                            <li>遇到困难及时沟通，不隐瞒</li>
+                            <li>成功和失败都要坦诚分享</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">
+                        <span class="section-title-icon">🔥</span>进阶技巧
+                    </div>
+                    <ul class="point-list">
+                        <li>创造非正式交流机会，建立信任关系</li>
+                        <li>理解领导的沟通风格，调整自己的表达方式</li>
+                        <li>帮助上级在其上级面前取得成功</li>
+                    </ul>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">
+                        <span class="section-title-icon">⚠️</span>注意事项
+                    </div>
+                    <ul class="point-list">
+                        <li>向上管理不是谄媚或操控</li>
+                        <li>保持原则，有理有据提出不同意见</li>
+                        <li>尊重职场边界，不越位</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer">✨ 职场进阶必备技能 · 向上管理 ✨</div>
+        </div>
+    </div>
+</body>
+</html>
